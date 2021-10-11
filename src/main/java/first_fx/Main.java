@@ -33,8 +33,11 @@ public class Main extends Application {
         scene1 = new Scene(layout1, 200, 200);
 
         //Button 2
-        Button button2 = new Button("Go to scene 1.");
-        button2.setOnAction(e -> window.setScene(scene1));
+        Button button2 = new Button("ALERT!");
+        button2.setOnAction(e -> {
+            boolean result = ConfirmationBox.display("Question", "Are You Sure?");
+            System.out.println(result);
+        });
 
         //Layout 2
         StackPane layout2 = new StackPane();

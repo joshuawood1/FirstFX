@@ -3,30 +3,48 @@ package first_fx;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    Button button;
 
-    public static void main(String[] args) {
-        launch(args); //will call launch from application to set up the program as a Java Fx application.
+    Stage window; //this names the stage to window.
+    Scene scene1, scene2; //this names all the different scenes that will be used within the window.
+
+    public static void main(String[] args){
+        launch(args);
     }
+
     @Override
-    //stage is the window.
-    //the content inside the window is called the scene
-    public void start(Stage stage) throws Exception{//this gets called once the launch method has been run.
-        stage.setTitle("Hello");//sets the title of the window
+    public void start(Stage stage) throws Exception {
+        window = stage;
+        Label label1 = new Label("Welcome to scene 1"); //this is just a chunk of text that will be displayed within the scene.
 
-        button = new Button(); //initialises a new button.
-        button.setText("Click me");//sets the text on the button.
+        //Button 1
+        Button button1 = new Button();
+        button1.setText("Click here to change scene.");
+        button1.setOnAction(e -> window.setScene(scene2));//this will change the scene to scene 2 when the button is clicked, by using a lambda expression.
 
-        StackPane layout = new StackPane(); //this is a preset simple layout.
-        layout.getChildren().add(button); //this will set the button to be Centre as within the StackPane class it will automatically centre the button.
+        //Layout 1
+        VBox layout1 = new VBox(20); //VBox will stack all the objects in that scene in vertical order, giving it a number will be the space between each object in pixels.
+        layout1.getChildren().addAll(label1, button1);//this will add any objects in the parameters to the scene.
+        scene1 = new Scene(layout1, 200, 200);
 
-        Scene scene = new Scene(layout, 300, 250); //this creates a new instance of the scene class and sets it to be called scene. it then takes in the layout we have chosen and also the size.
-        stage.setScene(scene);//this then sets the scene within the window.
-        stage.show();//this will then show the window when it is run.
+        //Button 2
+        Button button2 = new Button("Go to scene 1.");
+        button2.setOnAction(e -> window.setScene(scene1));
+
+        //Layout 2
+        StackPane layout2 = new StackPane();
+        layout2.getChildren().add(button2);
+        scene2 = new Scene(layout2, 600, 300);
+
+        //displays the first scene
+        window.setScene(scene1);
+        window.setTitle("Scene Switcher");
+        window.show();//will display the window.
     }
 
 }
